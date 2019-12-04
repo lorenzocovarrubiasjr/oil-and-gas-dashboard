@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { VictoryLine, VictoryChart, VictoryAxis } from 'victory';
 import './Chart.styles.scss';
+import { Line } from 'react-chartjs-2';
 
 
 
@@ -97,17 +96,11 @@ const Chart = () => {
     };
 
     function getValues(measurements){
-      let lowest_value = 0;
-      let highest_value = 100;
-      let value_difference = highest_value - lowest_value;
-      let step_size = value_difference / 10;
-      let ticks_in_range = [];
-      let counting_tick = lowest_value;
-      while (counting_tick < highest_value){
-        ticks_in_range.push(counting_tick)
-        counting_tick += step_size;
+      let values = []
+      for (let measurement of measurements){
+        values.push(measurement["value"])
       }
-      return ticks_in_range
+      return values;
     }
 
     const chartDates = getDates(measurements);
@@ -118,19 +111,46 @@ const Chart = () => {
       return d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
     }
 
+    let readable_chart_dates = [];
+    for (let date of chartDates){
+      readable_chart_dates.push(dateFormat(date))
+    }
+
+    const data = {
+        labels: readable_chart_dates,
+        datasets: [{
+          label: measurements[0].metric,
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: 'rgba(75,192,192,0.4)',
+          borderColor: 'rgba(75,192,192,1)',
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: 'rgba(75,192,192,1)',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: chartValues
+        }]
+    }
+
   return (
-    <VictoryChart domainPadding={15}>
-        <VictoryAxis
-          tickValues={chartDates}
-          tickFormat={dateFormat}
-          />
-        <VictoryAxis
-          dependentAxis
-          tickValues={chartValues}
-          tickFormat={chartValues} 
-          />
-       <VictoryLine data={measurements} x="at" y="value"/>
-    </VictoryChart>
+    <>
+    <Line
+      data={data}
+      width={66}
+      height={20}
+      options={{ maintainAspectRatio: false }}
+    />
+    {<path d="M 10 10 L 20 20 z"/>}
+    </>
   )
 }
 

@@ -36,7 +36,7 @@ export default () => {
       <Weather />
     </Provider>
   );
-};
+}
 
 const Weather = () => {
   const getLocation = useGeolocation();
