@@ -1,86 +1,18 @@
 import React from 'react';
 import './Chart.styles.scss';
 import { Line } from 'react-chartjs-2';
+import { IState } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
 
-
+const getMeasurements = (state: IState) => {
+  const { measurements }  = state.chart;
+  return measurements
+}
 
 const Chart = () => {
-    const measurements = [
-    {
-      "metric": "oilTemp",
-      "at": 1575364886383,
-      "value": 154.18,
-      "unit": "F"
-    },
-    {
-      "metric": "oilTemp",
-      "at": 1575364887687,
-      "value": 152.7,
-      "unit": "F"
-    },
-    {
-      "metric": "oilTemp",
-      "at": 1575364888989,
-      "value": 147.34,
-      "unit": "F"
-    },
-    {
-      "metric": "oilTemp",
-      "at": 1575364890290,
-      "value": 140.39,
-      "unit": "F"
-    },
-    {
-      "metric": "oilTemp",
-      "at": 1575364891594,
-      "value": 146.09,
-      "unit": "F"
-    },
-    {
-      "metric": "oilTemp",
-      "at": 1575364892894,
-      "value": 145.63,
-      "unit": "F"
-    },
-    {
-      "metric": "oilTemp",
-      "at": 1575364894195,
-      "value": 151.7,
-      "unit": "F"
-    },
-    {
-      "metric": "oilTemp",
-      "at": 1575364895497,
-      "value": 156.31,
-      "unit": "F"
-    },
-    {
-      "metric": "oilTemp",
-      "at": 1575364896804,
-      "value": 148.17,
-      "unit": "F"
-    },
-    {
-      "metric": "oilTemp",
-      "at": 1575364898105,
-      "value": 141.76,
-      "unit": "F"
-    },
-    {
-      "metric": "oilTemp",
-      "at": 1575364899407,
-      "value": 144.73,
-      "unit": "F"
-    },
-    {
-      "metric": "oilTemp",
-      "at": 1575364900707,
-      "value": 144.99,
-      "unit": "F"
-    }
-    ];
+    const measurements = useSelector(getMeasurements);
 
-    function getDates(measurements){
+    function getDates(measurements: any){
       let start_time = measurements[0].at 
       let end_time = measurements[measurements.length-1].at
       let total_time = end_time - start_time
@@ -95,7 +27,7 @@ const Chart = () => {
       return ticks_in_range
     };
 
-    function getValues(measurements){
+    function getValues(measurements: any){
       let values = []
       for (let measurement of measurements){
         values.push(measurement["value"])
@@ -106,7 +38,7 @@ const Chart = () => {
     const chartDates = getDates(measurements);
     const chartValues = getValues(measurements);
 
-    const dateFormat = (x) => {
+    const dateFormat = (x: any) => {
       let d = new Date(x);
       return d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
     }
