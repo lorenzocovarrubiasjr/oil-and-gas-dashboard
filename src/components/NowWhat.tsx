@@ -11,14 +11,14 @@ import Avatar from './Avatar';
 
 const useStyles = makeStyles({
   card: {
-    margin: '5% 25%',
+    margin: '5% 5%',
   },
 });
 
 export default () => {
   const classes = useStyles();
   return (
-    <Card className={classes.card}>
+    <Card >
       <CardHeader title="OK, Lorenzo, you're all setup. Now What?" />
       <CardContent>
         <List>
