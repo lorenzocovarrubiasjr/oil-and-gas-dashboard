@@ -1,5 +1,5 @@
 import { reducer as weatherReducer } from '../Features/Weather/reducer';
-import chartReducer from '../Features/Chart/reducer.js';
+import { reducer as chartReducer } from '../Features/Chart/reducer';
 
 export default {
   weather: weatherReducer,
