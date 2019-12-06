@@ -2,13 +2,15 @@ import { createSlice, PayloadAction } from 'redux-starter-kit';
 
 const initialState = {
         //get DATA FROM GRAPH QL 
-        measurements: [
-          {
-          metric: "",
-          at: 0,
-          value: 0,
-          unit: ""
+        measurements: [{
+          newMeasurement: {
+            metric: "",
+            at: "",
+            value: "",
+            unit: ""
+          }
         }
+          
       ]
 };
 
@@ -17,7 +19,7 @@ export type ApiErrorAction = {
   };
 
 export type dataForMeasurements = {
-    lastKnownMeasurement: any;
+    newMeasurement: any;
     metric: string; 
     at: number; 
     value: number; 
@@ -34,7 +36,11 @@ export type dataForMeasurements = {
     reducers: {
       chartDataReceived: (state, action: PayloadAction<dataForMeasurements>) => {
         const lastKnownMeasurement = action.payload;
-        state.measurements = [...state.measurements, lastKnownMeasurement];
+        //console.log("Reducer last known measurement.metric: ", lastKnownMeasurement.newMeasurement.metric)
+        if (lastKnownMeasurement.newMeasurement.metric === "oilTemp"){
+          state.measurements = [...state.measurements, lastKnownMeasurement];
+        }
+        
       },
       chartApiErrorReceived: (state, action: PayloadAction<ApiErrorAction>) => state,
       },
