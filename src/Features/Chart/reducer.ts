@@ -1,17 +1,46 @@
 import { createSlice, PayloadAction } from 'redux-starter-kit';
+import { any } from 'prop-types';
 
 const initialState = {
         //get DATA FROM GRAPH QL 
-        measurements: [{
-          newMeasurement: {
+        measurements: {
+          oilTemp: [{
             metric: "",
             at: "",
-            value: "",
+            value: "test",
             unit: ""
-          }
+          }],
+          injValveOpen: [{
+            metric: "",
+            at: "",
+            value: "test",
+            unit: ""
+          }],
+          tubingPressure: [{
+            metric: "",
+            at: "",
+            value: "test",
+            unit: ""
+          }],
+          flareTemp: [{
+            metric: "",
+            at: "",
+            value: "test",
+            unit: ""
+          }],
+          casingPressure: [{
+            metric: "",
+            at: "",
+            value: "test",
+            unit: ""
+          }],
+          waterTemp: [{
+            metric: "",
+            at: "",
+            value: "test",
+            unit: ""
+          }]
         }
-          
-      ]
 };
 
 export type ApiErrorAction = {
@@ -20,10 +49,16 @@ export type ApiErrorAction = {
 
 export type dataForMeasurements = {
     newMeasurement: any;
-    metric: string; 
-    at: number; 
-    value: number; 
-    unit: string;
+    metric: any; 
+    at: any; 
+    value: any; 
+    unit: any;
+    injValveOpen: any;
+    oilTemp: any;
+    tubingPressure: any;
+    flareTemp: any;
+    casingPressure: any;
+    waterTemp: any
   };
 
 //export type updateTime = {
@@ -36,9 +71,23 @@ export type dataForMeasurements = {
     reducers: {
       chartDataReceived: (state, action: PayloadAction<dataForMeasurements>) => {
         const lastKnownMeasurement = action.payload;
-        //console.log("Reducer last known measurement.metric: ", lastKnownMeasurement.newMeasurement.metric)
         if (lastKnownMeasurement.newMeasurement.metric === "oilTemp"){
-          state.measurements = [...state.measurements, lastKnownMeasurement];
+          state.measurements.oilTemp = [...state.measurements.oilTemp, lastKnownMeasurement];
+        }
+        if (lastKnownMeasurement.newMeasurement.metric === "injValveOpen"){
+          state.measurements.injValveOpen = [...state.measurements.injValveOpen, lastKnownMeasurement];
+        }
+        if (lastKnownMeasurement.newMeasurement.metric === "tubingPressure"){
+          state.measurements.tubingPressure = [...state.measurements.tubingPressure, lastKnownMeasurement];
+        }
+        if (lastKnownMeasurement.newMeasurement.metric === "flareTemp"){
+          state.measurements.flareTemp = [...state.measurements.flareTemp, lastKnownMeasurement];
+        }
+        if (lastKnownMeasurement.newMeasurement.metric === "casingPressure"){
+          state.measurements.casingPressure = [...state.measurements.casingPressure, lastKnownMeasurement];
+        }
+        if (lastKnownMeasurement.newMeasurement.metric === "waterTemp"){
+          state.measurements.waterTemp = [...state.measurements.waterTemp, lastKnownMeasurement];
         }
         
       },
