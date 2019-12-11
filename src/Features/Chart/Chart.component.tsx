@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import './Chart.styles.scss';
-import { Line } from 'react-chartjs-2';
 import { IState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Provider, createClient, useSubscription, defaultExchanges, subscriptionExchange } from 'urql';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ChartGraphWithZoom from '../../components/ChartGraph-zoom/chartgraph-zoom.component';
+import ControllerSelect from '../../components/Contoller-Select/Controller-Select.component';
+import ControllerIcon from '../../components/Controller-Icon/Controller-Icon.component';
 import { actions } from './reducer';
 
 //Set up subscription connection
@@ -49,15 +50,19 @@ const getMeasurements = (state: IState) => {
 export default () => {
   return (
     <Provider value={client}>
-      <Chart />
+      <div className="full-chart">
+        <div className="chart-header">
+          <ControllerIcon />
+          <ControllerSelect />
+        </div>
+        <Chart />
+      </div>
+      
     </Provider>
   )
 };
 //Creating Chart component
 const Chart = () => {
-    //setting measurements from state 
-    const measurements = useSelector(getMeasurements);
-    
     //useQuery gets result from GraphQL
     const [result] = useSubscription({
       query: subscription,
@@ -85,6 +90,9 @@ const Chart = () => {
     
     // Return Line Chart component with props
     return (
-      <ChartGraphWithZoom />
+      <div className="chart-graph">
+          <ChartGraphWithZoom />
+      </div>
+      
     )
 };

@@ -33,10 +33,11 @@ const App = () => (
       <Wrapper>
         <Header />
         <div className="home-center">
-          <NowWhat />
+          
           <Chart />
           <ToastContainer />
         </div>
+        <NowWhat />
       </Wrapper>
     </Provider>
   </MuiThemeProvider>

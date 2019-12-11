@@ -9,26 +9,28 @@ const getMeasurements = (state: IState) => {
     const { measurements }  = state.chart;
     return measurements
   }
+
+  
  
 const ChartGraphWithZoom = () => {
 
 	const measurements = useSelector(getMeasurements);
-	
+
 	let measurements_per_graph = 25;
 
 	const dateFormat = (x: any) => {
-      let d = new Date(x);
-      return d;
-    }
+	  let d = new Date(x);
+      return d.toLocaleTimeString();
+	}
 
     function createDataPoints(measurements:any) {
 		const data: any = [];
-		const oilTemp = [];
-		const injValveOpen = [];
-		const tubingPressure = [];
-		const flareTemp = [];
-		const casingPressure = [];
-		const waterTemp = [];
+		const oilTemp: any[] = [];
+		const injValveOpen: any[] = [];
+		const tubingPressure: any[] = [];
+		const flareTemp: any[] = [];
+		const casingPressure: any[] = [];
+		const waterTemp: any[] = [];
 		for (let [key, value] of Object.entries(measurements)) {
 			switch (key) {
 				case "oilTemp":
@@ -51,45 +53,69 @@ const ChartGraphWithZoom = () => {
 					break;
 			}
 		}
-		const metrics = [] 
+		const metrics: any = [] 
 		metrics.push(oilTemp, injValveOpen, tubingPressure, flareTemp, casingPressure, waterTemp)
+		for (let metric of metrics) {
+			if (metric.length > 1) {
+				metric.shift() 
+			} 
+		}
 		for (let metric of metrics){
-			console.log("This is metric: ", metric)
-			let metricName = (metric[1] ? metric[1].metric : metric[0].metric);
-			let metricUnit = (metric[1] ? metric[1].unit : metric[0].unit)
+			let metricName: any = (metric[0].length > 1) ? metric[0][1].newMeasurement.metric : metric[0][0].metric;
+			let metricUnit: any = (metric[0].length > 1 ? metric[0][1].newMeasurement.unit : metric[0].unit)
+			let metric_data_point: any[] = [];
+			for (let newMeasurement of metric[0]){
+				if (newMeasurement.at !== ""){
+					metric_data_point.push({
+						
+						x: newMeasurement.newMeasurement.at, 
+						y: newMeasurement.newMeasurement.value})
+				}
+			};
 			data.push({
 				type: "line",
 				name: metricName,
 				showInLegend: true,
-				xValueFormatString: "MMM YYYY",
+				xValueFormatString: "hh:mm:ss TT",
 				yValueFormatString: metricUnit,
-				dataPoints: 0,
+				dataPoints: metric_data_point,
 			})
 		}
 		return data;
 	}
-	
-	console.log("createDataPoints: ", createDataPoints(measurements))
+
+	let data_points = createDataPoints(measurements)
 
     const options = {
 		theme: "light2", // "light1", "dark1", "dark2"
 		animationEnabled: true,
 		zoomEnabled: true,
-		title: {
-			text: "Try Zooming and Panning"
-		},
+		
 		axisY: {
 			includeZero: false
 		},
 		axisX: {
 			title: "Dates",
-			valueFormatString: "hh:mm:ss TT"
+			//valueFormatString: "hh:mm:ss TT"
 		},
-		data: [{
-			type: "line",
-			fillOpacity: 0,
-			dataPoints: createDataPoints(measurements)
-		}]
+		data: data_points
+		// [{
+		// 	name: "oilTemp",
+		// 	showInLegend: true,
+		// 	type: "line",
+		// 	xValueFormatString: "hh:mm:ss TT",
+		// 	yValueFormatString: "F",
+		// 	dataPoints:
+			
+			// [
+			// 	{ x: "2:40:44 PM", y: 243.6 },
+			// 	{ x: "2:40:47 PM", y: 243.6 },
+			// 	{ x: "2:40:50 PM", y: 233.53},
+			// 	{ x: "2:40:55 PM", y: 232.89},
+			// 	{ x: "2:40:58 PM", y: 228.81},
+			// 	{ x: "2:41:00 PM", y: 236.66},
+			// 	{ x: "2:41:04 PM", y: 244.18}​​,]
+		//}]
 	}
 
 		return (

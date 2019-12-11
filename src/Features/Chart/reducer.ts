@@ -5,42 +5,44 @@ const initialState = {
         //get DATA FROM GRAPH QL 
         measurements: {
           oilTemp: [{
-            metric: "",
+            metric: "test",
             at: "",
             value: "test",
             unit: ""
           }],
           injValveOpen: [{
-            metric: "",
+            metric: "test",
             at: "",
             value: "test",
             unit: ""
           }],
           tubingPressure: [{
-            metric: "",
+            metric: "test",
             at: "",
             value: "test",
             unit: ""
           }],
           flareTemp: [{
-            metric: "",
+            metric: "test",
             at: "",
             value: "test",
             unit: ""
           }],
           casingPressure: [{
-            metric: "",
+            metric: "test",
             at: "",
             value: "test",
             unit: ""
           }],
           waterTemp: [{
-            metric: "",
+            metric: "test",
             at: "",
             value: "test",
             unit: ""
           }]
-        }
+        },
+        toggler: [{"oilTemp": {}}],
+        toggle: false
 };
 
 export type ApiErrorAction = {
@@ -48,18 +50,33 @@ export type ApiErrorAction = {
   };
 
 export type dataForMeasurements = {
-    newMeasurement: any;
-    metric: any; 
-    at: any; 
-    value: any; 
-    unit: any;
-    injValveOpen: any;
-    oilTemp: any;
-    tubingPressure: any;
-    flareTemp: any;
-    casingPressure: any;
-    waterTemp: any
+    newMeasurement: {
+      metric: string; 
+    };
+    metric: string; 
+    at: string; 
+    value: string; 
+    unit: string;
+    injValveOpen: object;
+    oilTemp: object;
+    tubingPressure: object;
+    flareTemp: object;
+    casingPressure:object;
+    waterTemp: object
   };
+
+  export type chartToggled = {
+    toggle: boolean
+  }
+
+  export type chartMetricToggle = {
+    injValveOpen: object;
+    oilTemp: object;
+    tubingPressure: object;
+    flareTemp: object;
+    casingPressure:object;
+    waterTemp: object
+  }
 
 //export type updateTime = {
 //    current_time: number;
@@ -91,8 +108,15 @@ export type dataForMeasurements = {
         }
         
       },
-      chartApiErrorReceived: (state, action: PayloadAction<ApiErrorAction>) => state,
+      toggleHidden: (state) => {
+        state.toggle = !state.toggle;
       },
+      chartMetricToggler: (state, action: PayloadAction<chartMetricToggle>) => {
+        const metrics_selected = action.payload;
+        state.toggler = [...state.toggler, metrics_selected];
+      },
+      chartApiErrorReceived: (state, action: PayloadAction<ApiErrorAction>) => state
+      }
   //    setTime: (state, action: PayloadAction<updateTime>) => {
   //      const current_date = action.payload;
   //      state.dates = current_date;
