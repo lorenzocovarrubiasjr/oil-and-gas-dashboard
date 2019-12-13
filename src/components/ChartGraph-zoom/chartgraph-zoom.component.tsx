@@ -19,11 +19,6 @@ const ChartGraphWithZoom = () => {
 	const metric_toggle = useSelector(getToggler);
 	const measurements = useSelector(getMeasurements);
 
-	const dateFormat = (x: any) => {
-	  let d = new Date(x);
-      return d.toLocaleTimeString();
-	}
-
     function createDataPoints(measurements:any) {
 		const data: any = [];
 		const oilTemp: any[] = [];
@@ -86,8 +81,9 @@ const ChartGraphWithZoom = () => {
 			for (let newMeasurement of metric[0]){
 				if (newMeasurement.at !== ""){
 					metric_data_point.push({
-						x: newMeasurement.newMeasurement.at, 
+						x: new Date(newMeasurement.newMeasurement.at), 
 						y: newMeasurement.newMeasurement.value})
+					console.log("data point; ",metric_data_point)
 				}
 			};
 			data.push({
@@ -105,7 +101,7 @@ const ChartGraphWithZoom = () => {
 	let data_points = createDataPoints(measurements)
 
     const options = {
-		theme: "dark1", // "light1", "dark1", "dark2"
+		theme: "light1", // "light1", "dark1", "dark2"
 		animationEnabled: true,
 		zoomEnabled: true,
 		
@@ -114,7 +110,7 @@ const ChartGraphWithZoom = () => {
 		},
 		axisX: {
 			title: "Dates",
-			//valueFormatString: "hh:mm:ss TT"
+			valueFormatString: "hh:mm:ss TT"
 		},
 		data: data_points
 		// [{
