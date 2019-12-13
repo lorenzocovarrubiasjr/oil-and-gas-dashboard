@@ -41,7 +41,14 @@ const initialState = {
             unit: ""
           }]
         },
-        toggler: [{"oilTemp": {}}],
+        toggler: {
+          oilTemp: true,
+          injValveOpen: true, 
+          tubingPressure: true,
+          flareTemp: true,
+          casingPressure: true, 
+          waterTemp: true
+        },
         toggle: false
 };
 
@@ -65,17 +72,9 @@ export type dataForMeasurements = {
     waterTemp: object
   };
 
-  export type chartToggled = {
-    toggle: boolean
-  }
-
-  export type chartMetricToggle = {
-    injValveOpen: object;
-    oilTemp: object;
-    tubingPressure: object;
-    flareTemp: object;
-    casingPressure:object;
-    waterTemp: object
+  export type metricSelect = {
+    metric: string;
+    toggler: any;
   }
 
 //export type updateTime = {
@@ -106,14 +105,33 @@ export type dataForMeasurements = {
         if (lastKnownMeasurement.newMeasurement.metric === "waterTemp"){
           state.measurements.waterTemp = [...state.measurements.waterTemp, lastKnownMeasurement];
         }
-        
       },
       toggleHidden: (state) => {
         state.toggle = !state.toggle;
       },
-      chartMetricToggler: (state, action: PayloadAction<chartMetricToggle>) => {
-        const metrics_selected = action.payload;
-        state.toggler = [...state.toggler, metrics_selected];
+      selectOilTemp: (state, action: PayloadAction<metricSelect>) => {
+        const newStatus = !state.toggler.oilTemp;
+        state.toggler = {...state.toggler, oilTemp: newStatus};
+      },
+      selectInjValveOpen: (state, action: PayloadAction<metricSelect>) => {
+        const newStatus = !state.toggler.injValveOpen;
+        state.toggler = {...state.toggler, injValveOpen: newStatus};
+      },
+      selectTubingPressure: (state, action: PayloadAction<metricSelect>) => {
+        const newStatus = !state.toggler.tubingPressure;
+        state.toggler = {...state.toggler, tubingPressure: newStatus};
+      },
+      selectFlareTemp: (state, action: PayloadAction<metricSelect>) => {
+        const newStatus = !state.toggler.flareTemp;
+        state.toggler = {...state.toggler, flareTemp: newStatus};
+      },
+      selectCasingPressure: (state, action: PayloadAction<metricSelect>) => {
+        const newStatus = !state.toggler.casingPressure;
+        state.toggler = {...state.toggler, casingPressure: newStatus};
+      },
+      selectWaterTemp: (state, action: PayloadAction<metricSelect>) => {
+        const newStatus = !state.toggler.waterTemp;
+        state.toggler = {...state.toggler, waterTemp: newStatus};
       },
       chartApiErrorReceived: (state, action: PayloadAction<ApiErrorAction>) => state
       }

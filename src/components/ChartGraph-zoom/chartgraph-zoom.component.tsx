@@ -10,13 +10,14 @@ const getMeasurements = (state: IState) => {
     return measurements
   }
 
-  
+const getToggler = (state: IState) => {
+	const { toggler } = state.chart;
+	return toggler;
+}  
  
 const ChartGraphWithZoom = () => {
-
+	const metric_toggle = useSelector(getToggler);
 	const measurements = useSelector(getMeasurements);
-
-	let measurements_per_graph = 25;
 
 	const dateFormat = (x: any) => {
 	  let d = new Date(x);
@@ -54,7 +55,25 @@ const ChartGraphWithZoom = () => {
 			}
 		}
 		const metrics: any = [] 
-		metrics.push(oilTemp, injValveOpen, tubingPressure, flareTemp, casingPressure, waterTemp)
+		if (metric_toggle.oilTemp === true) {
+			metrics.push(oilTemp);
+		}
+		if (metric_toggle.injValveOpen === true) {
+			metrics.push(injValveOpen);
+		}
+		if (metric_toggle.tubingPressure === true) {
+			metrics.push(tubingPressure);
+		}
+		if (metric_toggle.flareTemp === true) {
+			metrics.push(flareTemp);
+		}
+		if (metric_toggle.casingPressure === true) {
+			metrics.push(casingPressure);
+		}
+		if (metric_toggle.waterTemp === true) {
+			metrics.push(waterTemp);
+		}
+
 		for (let metric of metrics) {
 			if (metric.length > 1) {
 				metric.shift() 
@@ -67,7 +86,6 @@ const ChartGraphWithZoom = () => {
 			for (let newMeasurement of metric[0]){
 				if (newMeasurement.at !== ""){
 					metric_data_point.push({
-						
 						x: newMeasurement.newMeasurement.at, 
 						y: newMeasurement.newMeasurement.value})
 				}
@@ -87,7 +105,7 @@ const ChartGraphWithZoom = () => {
 	let data_points = createDataPoints(measurements)
 
     const options = {
-		theme: "light2", // "light1", "dark1", "dark2"
+		theme: "dark1", // "light1", "dark1", "dark2"
 		animationEnabled: true,
 		zoomEnabled: true,
 		

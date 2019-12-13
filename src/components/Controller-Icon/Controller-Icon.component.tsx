@@ -5,15 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../Features/Chart/reducer';
 import './Controller-icon.styles.scss';
 
-const toggle = (state: IState) => {
-    const { toggle }  = state.chart;
-    return toggle
-  }
-
-
-
 const ControllerIcon = () => {
-    const toggled = useSelector(toggle);
     const dispatch = useDispatch();
 
     const toggleMetricsButton = () => {
