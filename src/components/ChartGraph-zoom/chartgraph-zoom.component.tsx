@@ -14,10 +14,16 @@ const getToggler = (state: IState) => {
 	const { toggler } = state.chart;
 	return toggler;
 }  
+
+const NightDay = (state: IState) => {
+    const { NightDayMode }  = state.chart;
+    return NightDayMode
+  }
  
 const ChartGraphWithZoom = () => {
 	const metric_toggle = useSelector(getToggler);
 	const measurements = useSelector(getMeasurements);
+	const daynightmode = useSelector(NightDay);
 
     function createDataPoints(measurements:any) {
 		const data: any = [];
@@ -83,7 +89,6 @@ const ChartGraphWithZoom = () => {
 					metric_data_point.push({
 						x: new Date(newMeasurement.newMeasurement.at), 
 						y: newMeasurement.newMeasurement.value})
-					console.log("data point; ",metric_data_point)
 				}
 			};
 			data.push({
@@ -101,35 +106,33 @@ const ChartGraphWithZoom = () => {
 	let data_points = createDataPoints(measurements)
 
     const options = {
-		theme: "light1", // "light1", "dark1", "dark2"
+		theme: (daynightmode ? "dark1": "light1"), // "light1", "dark1", "dark2"
 		animationEnabled: true,
 		zoomEnabled: true,
 		
 		axisY: {
+			title: "F",
 			includeZero: false
+
+		},
+		axisY2: {
+			title: "PSI",
+			includeZero: false
+
 		},
 		axisX: {
 			title: "Dates",
 			valueFormatString: "hh:mm:ss TT"
 		},
+		toolTip: {
+			shared: true,
+			itemclick: data_points
+		},
+		legend: {
+			cursor: "pointer",
+			verticalAlign: "top"
+		},
 		data: data_points
-		// [{
-		// 	name: "oilTemp",
-		// 	showInLegend: true,
-		// 	type: "line",
-		// 	xValueFormatString: "hh:mm:ss TT",
-		// 	yValueFormatString: "F",
-		// 	dataPoints:
-			
-			// [
-			// 	{ x: "2:40:44 PM", y: 243.6 },
-			// 	{ x: "2:40:47 PM", y: 243.6 },
-			// 	{ x: "2:40:50 PM", y: 233.53},
-			// 	{ x: "2:40:55 PM", y: 232.89},
-			// 	{ x: "2:40:58 PM", y: 228.81},
-			// 	{ x: "2:41:00 PM", y: 236.66},
-			// 	{ x: "2:41:04 PM", y: 244.18}​​,]
-		//}]
 	}
 
 		return (

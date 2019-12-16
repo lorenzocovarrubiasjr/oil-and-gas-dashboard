@@ -1,5 +1,6 @@
 import React from 'react';
 import { ReactComponent as MetricsIcon } from './metrics.svg';
+import Chip from '@material-ui/core/Chip';
 import { IState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../Features/Chart/reducer';
@@ -14,7 +15,12 @@ const ControllerIcon = () => {
 
     return (
     <div className='controller-icon' onClick={toggleMetricsButton} >
-        <MetricsIcon className='metricsIcon' />
+         <Chip
+        label="Select Metrics"
+        icon={<MetricsIcon className='metricsIcon' />}
+        clickable
+        color="primary"
+        />  
     </div>
     )
 }

@@ -49,7 +49,8 @@ const initialState = {
           casingPressure: true, 
           waterTemp: true
         },
-        toggle: false
+        toggle: false,
+        NightDayMode: false
 };
 
 export type ApiErrorAction = {
@@ -77,10 +78,6 @@ export type dataForMeasurements = {
     toggler: any;
   }
 
-//export type updateTime = {
-//    current_time: number;
-//}
-
   const slice = createSlice({
     name: 'chart',
     initialState,
@@ -89,6 +86,9 @@ export type dataForMeasurements = {
         const lastKnownMeasurement = action.payload;
         if (lastKnownMeasurement.newMeasurement.metric === "oilTemp"){
           state.measurements.oilTemp = [...state.measurements.oilTemp, lastKnownMeasurement];
+          if (state.measurements.oilTemp.length > 1384000) {
+            state.measurements.oilTemp.shift();
+          }
         }
         if (lastKnownMeasurement.newMeasurement.metric === "injValveOpen"){
           state.measurements.injValveOpen = [...state.measurements.injValveOpen, lastKnownMeasurement];
@@ -108,6 +108,9 @@ export type dataForMeasurements = {
       },
       toggleHidden: (state) => {
         state.toggle = !state.toggle;
+      },
+      NightDayModeToggle: (state) => {
+        state.NightDayMode = !state.NightDayMode;
       },
       selectOilTemp: (state, action: PayloadAction<metricSelect>) => {
         const newStatus = !state.toggler.oilTemp;

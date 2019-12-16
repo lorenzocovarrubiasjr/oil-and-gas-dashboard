@@ -2,12 +2,11 @@ import React, { useEffect } from 'react';
 import './Chart.styles.scss';
 import { IState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { Provider, createClient, useSubscription, defaultExchanges, subscriptionExchange } from 'urql';
+import { Provider, createClient, useQuery, useSubscription, defaultExchanges, subscriptionExchange } from 'urql';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ChartGraphWithZoom from '../../components/ChartGraph-zoom/chartgraph-zoom.component';
-import ControllerSelect from '../../components/Contoller-Select/Controller-Select.component';
-import ControllerIcon from '../../components/Controller-Icon/Controller-Icon.component';
+import SubHeader from '../../components/SubHeader/SubHeader.component';
 import { actions } from './reducer';
 
 const subscriptionClient = new SubscriptionClient(
@@ -23,6 +22,17 @@ const client = createClient({
    })
   ]
 });
+
+const query = `
+query($input: MeasurementQuery) {
+  getMultipleMeasurements(input: $input) {
+    metric
+    at
+    value
+    unit
+  }
+}
+`;
 
 const subscription = `
     subscription newMeasurement {
@@ -45,8 +55,7 @@ export default () => {
     <Provider value={client}>
       <div className="full-chart">
         <div className="chart-header">
-          <ControllerIcon />
-          <ControllerSelect />
+          <SubHeader />
         </div>
         <Chart />
       </div>
@@ -56,12 +65,54 @@ export default () => {
 };
 
 const Chart = () => {
+    // const time: number = Date.now();
+
+    // function query_generate(metric: string, time: number){
+    //   return `{
+    //     metricName: ${metric},
+    //     after: ${(time - 1800000)},
+    //     before: ${time}
+    //   }`
+    // }
+
+    // const metrics = ["oilTemp", "injValveOpen", "tubingPressure", "flareTemp", "casingPressure", "waterTemp"];
+
+    // const first_queries: string[] = [];
+
+    // for (let metric of metrics) {
+    //   let metric_query = query_generate(metric, time);
+    //   first_queries.push(metric_query);
+    // }
+
+    // console.log("These are first queries: ", first_queries)
+
+    const dispatch = useDispatch();
+
+    // for (let query of first_queries) {
+    //   const [inital_result] = useQuery({
+    //     query: query
+    //   });
+
+    //   const { fetching, data, error } = inital_result;
+
+    //   useEffect(() => {
+    //     if (error) {
+    //       dispatch(actions.chartApiErrorReceived({ error: error.message }));
+    //       return;
+    //     };
+    //     if (!data) return;
+    //     const initial_measurements = data;
+    //     dispatch(actions.chartDataReceived(initial_measurements));
+    //   }, [dispatch, data, error]);
+    //   if (fetching) return <CircularProgress />;
+    // }
+
     const [result] = useSubscription({
       query: subscription,
     });
     
     const { fetching, data, error } = result;
-    const dispatch = useDispatch();
+    
     
     useEffect(() => {
         if (error) {

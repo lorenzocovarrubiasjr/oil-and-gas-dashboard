@@ -1,0 +1,12 @@
+.day-night-toggle {
+    width: 25vw;
+    height: 100%;
+    cursor: pointer;
+    color: white;
+    display: inline-block;
+
+    .inner-icon {
+        display: inline-block;
+        height: 20px;
+    }
+}
