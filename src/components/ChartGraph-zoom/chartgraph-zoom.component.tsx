@@ -81,22 +81,29 @@ const ChartGraphWithZoom = () => {
 			} 
 		}
 		for (let metric of metrics){
-			let metricName: any = (metric[0].length > 1) ? metric[0][1].newMeasurement.metric : metric[0][0].metric;
-			let metricUnit: any = (metric[0].length > 1 ? metric[0][1].newMeasurement.unit : metric[0].unit)
+			let metricName: any = metric[0][0].metric;
+			let metricUnit: any = metric[0].unit;
+			let metricIndex: number = 0;
+			if (metricUnit === "PSI"){
+				metricIndex = 1
+			}
+			if (metricUnit === "%"){
+				metricIndex = 2
+			}
 			let metric_data_point: any[] = [];
 			for (let newMeasurement of metric[0]){
 				if (newMeasurement.at !== ""){
 					metric_data_point.push({
-						x: new Date(newMeasurement.newMeasurement.at), 
-						y: newMeasurement.newMeasurement.value})
+						x: new Date(newMeasurement.at), 
+						y: newMeasurement.value})
 				}
 			};
 			data.push({
 				type: "line",
 				name: metricName,
 				showInLegend: true,
-				xValueFormatString: "hh:mm:ss TT",
-				yValueFormatString: metricUnit,
+				//xValueFormatString: "hh:mm:ss TT",
+				axisYindex: metricIndex,
 				dataPoints: metric_data_point,
 			})
 		}
@@ -109,28 +116,56 @@ const ChartGraphWithZoom = () => {
 		theme: (daynightmode ? "dark1": "light1"), // "light1", "dark1", "dark2"
 		animationEnabled: true,
 		zoomEnabled: true,
+		height: 650,
 		
-		axisY: {
+		axisY: [{
 			title: "F",
-			includeZero: false
+			titleFontSize: 16,
+			includeZero: false,
+			suffix: "F",
+			labelFontSize: 14,
 
 		},
-		axisY2: {
+		{
 			title: "PSI",
-			includeZero: false
+			titleFontSize: 16,
+			includeZero: false,
+			lineColor: "#369EAD",
+			tickColor: "#369EAD",
+			labelFontColor: "#369EAD",
+			titleFontColor: "#369EAD",
+			suffix: "PSI",
+			labelFontSize: 14,
 
 		},
+		{
+			title: "%",
+			titleFontSize: 16,
+			includeZero: false,
+			lineColor: "#7F6084",
+			tickColor: "#7F6084",
+			labelFontColor: "#7F6084",
+			titleFontColor: "#7F6084",
+			suffix: "%",
+			labelFontSize: 14,
+
+		}],
 		axisX: {
-			title: "Dates",
-			valueFormatString: "hh:mm:ss TT"
+			title: "Time",
+			valueFormatString: "hh:mm:ss TT",
+			labelFontSize: 14,
+			crosshair: {
+				enabled: true
+			}
 		},
 		toolTip: {
 			shared: true,
-			itemclick: data_points
+			borderThickness: 2,
 		},
 		legend: {
 			cursor: "pointer",
-			verticalAlign: "top"
+			verticalAlign: "top",
+			fontSize: 18,
 		},
 		data: data_points
 	}

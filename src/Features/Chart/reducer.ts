@@ -5,9 +5,9 @@ const initialState = {
         //get DATA FROM GRAPH QL 
         measurements: {
           oilTemp: [{
-            metric: "test",
+            metric: "",
             at: "",
-            value: "test",
+            value: "",
             unit: ""
           }],
           injValveOpen: [{
@@ -50,7 +50,13 @@ const initialState = {
           waterTemp: true
         },
         toggle: false,
-        NightDayMode: false
+        NightDayMode: false,
+        latestOilTempM: {metric: "", value: "", unit: "", at:""},
+        latestinjValveOpenM: {metric: "", value: "", unit: "", at:""},
+        latesttubingPressureM: {metric: "", value: "", unit: "", at:""},
+        latestflareTempM: {metric: "", value: "", unit: "", at:""},
+        latestcasingPressureM: {metric: "", value: "", unit: "", at:""},
+        latestwaterTempM: {metric: "", value: "", unit: "", at:""}
 };
 
 export type ApiErrorAction = {
@@ -58,8 +64,24 @@ export type ApiErrorAction = {
   };
 
 export type dataForMeasurements = {
+    initialMeasurements: {
+      metric: string, 
+      measurements: string,
+    }[];
+    getMultipleMeasurements: {
+      metric: string, 
+      measurements: {
+        metric: string, 
+        at: string, 
+        value: string, 
+        unit: string,
+      }[],
+    }[];
     newMeasurement: {
-      metric: string; 
+      metric: string, 
+      at: string, 
+      value: string, 
+      unit: string,
     };
     metric: string; 
     at: string; 
@@ -82,28 +104,73 @@ export type dataForMeasurements = {
     name: 'chart',
     initialState,
     reducers: {
+      initialDataReceived: (state, action: PayloadAction<dataForMeasurements>) => {
+        const initialMeasurements = action.payload.getMultipleMeasurements;
+        for (let metric of initialMeasurements) {
+          if (metric.metric === "oilTemp"){
+            state.measurements.oilTemp = [...metric.measurements]
+          }
+          if (metric.metric === "injValveOpen"){
+            state.measurements.injValveOpen = [...metric.measurements]
+          }
+          if (metric.metric === "tubingPressure"){
+            state.measurements.tubingPressure = [...metric.measurements]
+          }
+          if (metric.metric === "flareTemp"){
+            state.measurements.flareTemp = [...metric.measurements]
+          }
+          if (metric.metric === "casingPressure"){
+            state.measurements.casingPressure = [...metric.measurements]
+          }
+          if (metric.metric === "waterTemp"){
+            state.measurements.waterTemp = [...metric.measurements]
+          }
+
+        }
+      },
       chartDataReceived: (state, action: PayloadAction<dataForMeasurements>) => {
-        const lastKnownMeasurement = action.payload;
-        if (lastKnownMeasurement.newMeasurement.metric === "oilTemp"){
+        const lastKnownMeasurement = action.payload.newMeasurement;
+        if (lastKnownMeasurement.metric === "oilTemp"){
           state.measurements.oilTemp = [...state.measurements.oilTemp, lastKnownMeasurement];
+          state.latestOilTempM = lastKnownMeasurement;
           if (state.measurements.oilTemp.length > 1384000) {
             state.measurements.oilTemp.shift();
           }
         }
-        if (lastKnownMeasurement.newMeasurement.metric === "injValveOpen"){
+        if (lastKnownMeasurement.metric === "injValveOpen"){
           state.measurements.injValveOpen = [...state.measurements.injValveOpen, lastKnownMeasurement];
+          state.latestinjValveOpenM = lastKnownMeasurement;
+          if (state.measurements.injValveOpen.length > 1384000) {
+            state.measurements.injValveOpen.shift();
+          }
         }
-        if (lastKnownMeasurement.newMeasurement.metric === "tubingPressure"){
+        if (lastKnownMeasurement.metric === "tubingPressure"){
           state.measurements.tubingPressure = [...state.measurements.tubingPressure, lastKnownMeasurement];
+          state.latesttubingPressureM = lastKnownMeasurement;
+          if (state.measurements.tubingPressure.length > 1384000) {
+            state.measurements.tubingPressure.shift();
+          }
         }
-        if (lastKnownMeasurement.newMeasurement.metric === "flareTemp"){
+        if (lastKnownMeasurement.metric === "flareTemp"){
           state.measurements.flareTemp = [...state.measurements.flareTemp, lastKnownMeasurement];
+          state.latestflareTempM = lastKnownMeasurement;
+          if (state.measurements.flareTemp.length > 1384000) {
+            state.measurements.flareTemp.shift();
+          }
         }
-        if (lastKnownMeasurement.newMeasurement.metric === "casingPressure"){
+        if (lastKnownMeasurement.metric === "casingPressure"){
           state.measurements.casingPressure = [...state.measurements.casingPressure, lastKnownMeasurement];
+          state.latestcasingPressureM = lastKnownMeasurement;
+          if (state.measurements.casingPressure.length > 1384000) {
+            state.measurements.casingPressure.shift();
+          }
         }
-        if (lastKnownMeasurement.newMeasurement.metric === "waterTemp"){
+        if (lastKnownMeasurement.metric === "waterTemp"){
           state.measurements.waterTemp = [...state.measurements.waterTemp, lastKnownMeasurement];
+          state.latestwaterTempM = lastKnownMeasurement;
+          if (state.measurements.waterTemp.length > 1384000) {
+            state.measurements.waterTemp.shift();
+          }
         }
       },
       toggleHidden: (state) => {

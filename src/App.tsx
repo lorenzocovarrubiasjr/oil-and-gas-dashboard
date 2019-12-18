@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
 import NowWhat from './components/NowWhat';
-import Chart from './Features/Chart/Chart.component';
+import ChartHome from './Features/Chart/ChartHome.component';
 import './App.styles.scss';
 
 const store = createStore();
@@ -34,7 +34,7 @@ const App = () => (
         <Header />
         <div className="home-center">
           
-          <Chart />
+          <ChartHome />
           <ToastContainer />
         </div>
         <NowWhat />

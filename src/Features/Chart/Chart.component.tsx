@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './Chart.styles.scss';
 import { IState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { Provider, createClient, useQuery, useSubscription, defaultExchanges, subscriptionExchange } from 'urql';
+import { Provider, createClient, useSubscription, defaultExchanges, subscriptionExchange } from 'urql';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ChartGraphWithZoom from '../../components/ChartGraph-zoom/chartgraph-zoom.component';
@@ -22,17 +22,6 @@ const client = createClient({
    })
   ]
 });
-
-const query = `
-query($input: MeasurementQuery) {
-  getMultipleMeasurements(input: $input) {
-    metric
-    at
-    value
-    unit
-  }
-}
-`;
 
 const subscription = `
     subscription newMeasurement {
@@ -107,14 +96,18 @@ const Chart = () => {
     //   if (fetching) return <CircularProgress />;
     // }
 
+   
+
     const [result] = useSubscription({
       query: subscription,
     });
     
     const { fetching, data, error } = result;
-    
+
+    //console.log("Query data ",query_result.data)
     
     useEffect(() => {
+        
         if (error) {
           dispatch(actions.chartApiErrorReceived({ error: error.message }));
           return;
