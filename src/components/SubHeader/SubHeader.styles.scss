@@ -1,8 +1,33 @@
 .subheader{
-    overflow: hidden;
-    background-color: #ADD8E6;
+    //overflow: hidden;
+    background-color: rgb(12, 146, 190);
     display: -webkit-flex;
     display: flex;
     text-align: center;
-    height: 10vw;
+    height: 12vw;
+    position: relative;
+
+    .column-ticker {
+        margin: 5px;
+        flex-wrap: wrap;
+        width: 80%;
+    }
+    // .column {
+    //     float: left;
+    //     width: 10%;
+    //     position: relative;
+    //   }
+
+    .night-day {
+        position: absolute;
+        padding-top:50px;
+        margin-left: 55%;
+    }
+
+    .metric-selector {
+        position: absolute;
+        padding-top:60px;
+        margin-left: 80%;
+
+    }
 }

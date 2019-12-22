@@ -102,8 +102,9 @@ const ChartGraphWithZoom = () => {
 				type: "line",
 				name: metricName,
 				showInLegend: true,
-				//xValueFormatString: "hh:mm:ss TT",
-				axisYindex: metricIndex,
+				highlightEnabled: true,
+				xValueFormatString: "DDDD MMM YYYY hh:mm:ss TT",
+				axisYindex: 1,
 				dataPoints: metric_data_point,
 			})
 		}

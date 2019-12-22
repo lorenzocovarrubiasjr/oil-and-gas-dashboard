@@ -1,15 +1,10 @@
 .controller-icon {
-    width: 25vw;
-    height: 100%;
-    position: relative;
-    align-items: flex-end;
-    justify-content: right;
-    cursor: pointer;
-    color: white;
-    float: right;
-
+    margin: 15px;
+    
     .metricsIcon {
-        height: 100%;
-        width: 100%;
+        height: 35px;
+        width: 35px;
+        padding: 3px 0px 3px 3px;
+      
     }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import Switch, { SwitchClassKey, SwitchProps } from '@material-ui/core/Switch';
+import Grid from '@material-ui/core/Grid';
 import { ReactComponent as Day} from './sunny-day.svg';
 import { ReactComponent as Night } from './moon-phase-outline.svg';
 import { IState } from '../../store';
@@ -22,16 +23,19 @@ export default function NightDayMode() {
   
     return (
       <div className="day-night-toggle">
-        <Day className="inner-icon"/>
-        <Switch
-          checked={NightDayStatus}
-          onChange={toggleNightDayMode}
-          value={NightDayStatus}
-          color="primary"
-          inputProps={{ 'aria-label': 'primary checkbox' }}
-          className="inner-icon"
-        />
-        <Night className="inner-icon"/>
+        <Grid component="label" container alignItems="center" spacing={1}>
+          <Grid item><Day className="day-icon"/></Grid>
+          <Grid item>
+          <Switch
+            checked={NightDayStatus}
+            onChange={toggleNightDayMode}
+            value={NightDayStatus}
+            color="primary"
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+            className="switch-icon"
+          /></Grid>
+          <Grid item><Night className="night-icon"/></Grid>
+        </Grid>
       </div>
     );
   }

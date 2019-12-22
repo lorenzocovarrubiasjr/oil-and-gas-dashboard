@@ -7,7 +7,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from './Avatar';
+import { ReactComponent as Checkmark } from './tick.svg';
 
 const useStyles = makeStyles({
   card: {
@@ -23,24 +23,24 @@ export default () => {
       <CardContent>
         <List>
           <ListItem>
-            <Avatar>1</Avatar>
-            <ListItemText primary="Explore the GraphQL API" />
+            <Checkmark />
+            <ListItemText primary=" Explore the GraphQL API" />
           </ListItem>
           <ListItem>
-            <Avatar>2</Avatar>
-            <ListItemText primary="Add ability to select Metrics" />
+            <Checkmark /> 
+            <ListItemText primary=" Add ability to select Metrics" />
           </ListItem>
           <ListItem>
-            <Avatar>3</Avatar>
-            <ListItemText primary="Display the current metric data" />
+            <Checkmark />
+            <ListItemText primary=" Display the current metric data" />
           </ListItem>
           <ListItem>
-            <Avatar>4</Avatar>
-            <ListItemText primary="Chart historical metric data" />
+            <Checkmark />
+            <ListItemText primary=" Chart historical metric data" />
           </ListItem>
           <ListItem>
-            <Avatar>5</Avatar>
-            <ListItemText primary="Submit Your App" />
+            <Checkmark />
+            <ListItemText primary=" Submit Your App" />
           </ListItem>
         </List>
 

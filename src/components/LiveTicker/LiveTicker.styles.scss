@@ -1,0 +1,33 @@
+.live-ticker-grid {
+    margin-bottom: 10px;
+    //width:100%;
+    
+
+    // .live-ticker-row{
+    //     display: table;
+    //     clear: both;
+    //     padding-top: 10px;
+    //     margin: auto;
+
+    //     // .column {
+        //     float: left;
+        //     width: auto;
+        //     padding: 3px;
+
+        //   }
+
+        .metricCard {
+            //height: 50%;
+            margin: 5px;
+            -webkit-box-shadow: -7px 6px 14px -5px rgba(0,0,0,0.75);
+            -moz-box-shadow: -7px 6px 14px -5px rgba(0,0,0,0.75);
+            box-shadow: -7px 6px 14px -5px rgba(0,0,0,0.75);
+        }
+
+        .hidden {
+            display: none;
+        }
+    
+    
+}
+    
