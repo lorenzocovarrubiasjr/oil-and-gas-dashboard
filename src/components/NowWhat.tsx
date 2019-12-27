@@ -6,17 +6,9 @@ import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles } from '@material-ui/core/styles';
 import { ReactComponent as Checkmark } from './tick.svg';
 
-const useStyles = makeStyles({
-  card: {
-    margin: '5% 5%',
-  },
-});
-
 export default () => {
-  const classes = useStyles();
   return (
     <Card >
       <CardHeader title="OK, Lorenzo, you're all setup. Now What?" />

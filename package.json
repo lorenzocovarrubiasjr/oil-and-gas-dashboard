@@ -29,6 +29,7 @@
     "redux-starter-kit": "^1.0.1",
     "scss": "^0.2.4",
     "subscriptions-transport-ws": "^0.9.16",
+    "typeface-roboto": "0.0.75",
     "typescript": "^3.7.2",
     "urql": "^1.6.3",
     "victory": "^33.1.6"

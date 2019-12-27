@@ -1,8 +1,7 @@
 import React from 'react';
 import { IState } from '../../store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CanvasJSReact from './canvasjs.react';
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const getMeasurements = (state: IState) => {
@@ -104,7 +103,7 @@ const ChartGraphWithZoom = () => {
 				showInLegend: true,
 				highlightEnabled: true,
 				xValueFormatString: "DDDD MMM YYYY hh:mm:ss TT",
-				axisYindex: 1,
+				axisYindex: {metricIndex},
 				dataPoints: metric_data_point,
 			})
 		}
@@ -114,10 +113,11 @@ const ChartGraphWithZoom = () => {
 	let data_points = createDataPoints(measurements)
 
     const options = {
-		theme: (daynightmode ? "dark1": "light1"), // "light1", "dark1", "dark2"
+		theme: (daynightmode ? "dark1": "light1"),
 		animationEnabled: true,
 		zoomEnabled: true,
 		height: 650,
+		subtitles: [{ text: "Select Area to Zoom In"}],
 		
 		axisY: [{
 			title: "F",
@@ -173,10 +173,7 @@ const ChartGraphWithZoom = () => {
 
 		return (
 		<div>
-			<CanvasJSChart options = {options} 
-				/* onRef={ref => this.chart = ref} */
-			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+			<CanvasJSChart options = {options} />
 		</div>
 		);
 };

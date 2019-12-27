@@ -37,7 +37,7 @@ export default function ControllerSelect() {
 	const waterTempStatus: boolean = toggler['waterTemp']
 
 	const metric_names: string[] = []
-	for (let [key, value] of Object.entries(measurements)) {
+	for (let [key] of Object.entries(measurements)) {
 		metric_names.push(key)
 	}
 

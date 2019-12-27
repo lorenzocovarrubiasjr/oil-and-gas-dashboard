@@ -1,5 +1,5 @@
 import React from 'react';
-import Switch, { SwitchClassKey, SwitchProps } from '@material-ui/core/Switch';
+import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
 import { ReactComponent as Day} from './sunny-day.svg';
 import { ReactComponent as Night } from './moon-phase-outline.svg';
@@ -38,4 +38,4 @@ export default function NightDayMode() {
         </Grid>
       </div>
     );
-  }
+};

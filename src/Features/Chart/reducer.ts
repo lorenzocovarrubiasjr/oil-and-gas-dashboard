@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from 'redux-starter-kit';
-import { any } from 'prop-types';
 
 const initialState = {
-        //get DATA FROM GRAPH QL 
         measurements: {
           oilTemp: [{
             metric: "",
@@ -56,7 +54,8 @@ const initialState = {
         latesttubingPressureM: {metric: "", value: "", unit: "", at:""},
         latestflareTempM: {metric: "", value: "", unit: "", at:""},
         latestcasingPressureM: {metric: "", value: "", unit: "", at:""},
-        latestwaterTempM: {metric: "", value: "", unit: "", at:""}
+        latestwaterTempM: {metric: "", value: "", unit: "", at:""},
+        hello: true
 };
 
 export type ApiErrorAction = {
@@ -125,7 +124,6 @@ export type dataForMeasurements = {
           if (metric.metric === "waterTemp"){
             state.measurements.waterTemp = [...metric.measurements]
           }
-
         }
       },
       chartDataReceived: (state, action: PayloadAction<dataForMeasurements>) => {
@@ -176,6 +174,9 @@ export type dataForMeasurements = {
       toggleHidden: (state) => {
         state.toggle = !state.toggle;
       },
+      toggleHello: (state) => {
+        state.hello = !state.hello;
+      },
       NightDayModeToggle: (state) => {
         state.NightDayMode = !state.NightDayMode;
       },
@@ -205,11 +206,6 @@ export type dataForMeasurements = {
       },
       chartApiErrorReceived: (state, action: PayloadAction<ApiErrorAction>) => state
       }
-  //    setTime: (state, action: PayloadAction<updateTime>) => {
-  //      const current_date = action.payload;
-  //      state.dates = current_date;
-  //    }
-      
   });
 
   export const reducer = slice.reducer;

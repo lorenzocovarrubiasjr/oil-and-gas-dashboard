@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import './Chart.styles.scss';
-import { IState } from '../../store';
-import { useDispatch, useSelector } from 'react-redux';
-import { Provider, createClient, useQuery, useSubscription, defaultExchanges, subscriptionExchange } from 'urql';
-import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { useDispatch } from 'react-redux';
+import { Provider, createClient, useQuery } from 'urql';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Chart from './Chart.component';
-import SubHeader from '../../components/SubHeader/SubHeader.component';
+import Hello from '../../components/Hello/Hello.component';
 import { actions } from './reducer';
 
 const client = createClient({
@@ -72,8 +70,6 @@ export default () => {
 
 const ChartHome = () => {
 
-  
-
   const [result] = useQuery({
     query: query,
     variables: {
@@ -94,10 +90,11 @@ const ChartHome = () => {
     dispatch(actions.initialDataReceived(initialMeasurements));
 }, [dispatch, data, error]);
     
-    //if (fetching) return <CircularProgress />;
+    if (fetching) return <CircularProgress />;
 
     return (
         <div className="chart-graph">
+            <Hello />
             <Chart />
         </div>
         

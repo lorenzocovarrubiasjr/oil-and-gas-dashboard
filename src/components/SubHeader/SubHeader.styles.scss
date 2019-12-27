@@ -1,11 +1,6 @@
 .subheader{
     //overflow: hidden;
-    background-color: rgb(12, 146, 190);
-    display: -webkit-flex;
-    display: flex;
-    text-align: center;
-    height: 12vw;
-    position: relative;
+    
 
     .column-ticker {
         margin: 5px;
@@ -30,4 +25,8 @@
         margin-left: 80%;
 
     }
+}
+
+.nightMode {
+    background-image: linear-gradient(to bottom, #050e11 20%, #009cd9 52%)
 }

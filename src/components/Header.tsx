@@ -4,7 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
 import Weather from '../Features/Weather/Weather';
-import NightDayMode from '../components/NightDayMode/NightDayMode.component';
 
 const useStyles = makeStyles({
   grow: {

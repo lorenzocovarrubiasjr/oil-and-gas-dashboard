@@ -33,7 +33,6 @@ const App = () => (
       <Wrapper>
         <Header />
         <div className="home-center">
-          
           <ChartHome />
           <ToastContainer />
         </div>

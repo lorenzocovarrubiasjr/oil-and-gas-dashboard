@@ -3,7 +3,6 @@ import { ReactComponent as MetricsIcon } from './metrics.svg';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import ControllerSelect from '../Contoller-Select/Controller-Select.component';
-import Chip from '@material-ui/core/Chip';
 import { useDispatch } from 'react-redux';
 import { actions } from '../../Features/Chart/reducer';
 import './Controller-icon.styles.scss';
@@ -31,12 +30,6 @@ const ControllerIcon = () => {
 
     return (
     <div onClick={toggleMetricsButton} >
-         {/* <Chip
-        label="Select Metrics"
-        icon={<MetricsIcon className='metricsIcon' />}
-        clickable
-        color="primary"
-        />   */}
         <Fab variant="extended" className='controller-icon'>
         <MetricsIcon className={`metricsIcon ${classes.extendedIcon}`} />
         Metrics

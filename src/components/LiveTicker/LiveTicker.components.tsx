@@ -2,14 +2,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Grid, { GridSpacing } from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { IState } from '../../store';
-import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../../Features/Chart/reducer';
+import { useSelector } from 'react-redux';
 import './LiveTicker.styles.scss';
 
 const useStyles = makeStyles({
@@ -19,7 +16,6 @@ const useStyles = makeStyles({
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
-    //transform: 'scale(0.8)',
   },
   title: {
     fontSize: 12,
@@ -66,7 +62,6 @@ const metricToggler = (state: IState) => {
 
 export default function LiveTicker(metric: object) {
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
     const selectedMetrics = useSelector(metricToggler);
     const oilTempMeasurements = useSelector(getLatestOilTemp);
     const injValveOpenMeasurements = useSelector(getLatestInjValveOpen);
@@ -99,10 +94,6 @@ export default function LiveTicker(metric: object) {
     if (selectedMetrics.waterTemp !== true) {
         waterTempClass += ' hidden'
     };
-
-
-    // console.log("Oiltemp: ", measurements.oilTemp)
-    // const oilTempMetrics: object = measurements.oilTemp[measurements.oilTemp.length-1]
 
   return (
     <div className="live-ticker-grid">
@@ -196,7 +187,5 @@ export default function LiveTicker(metric: object) {
                 </Grid>
         </div>
     </div>      
-
-    
   );
 }
