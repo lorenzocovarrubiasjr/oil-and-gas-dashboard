@@ -1,7 +1,5 @@
 ## Create React App Visualization
-Oil & Gas Dashboard completed right after my coding school 
-
-Read more about this assessment [here](https://react.eogresources.com)
+Oil & Gas Dashboard created right after completing my coding bootcamp at Byte Academy. 
 
 ### Welcome Message 
 ![alt text](https://media.giphy.com/media/MZiH097XqXnsNByWnD/giphy.gif)
@@ -21,3 +19,5 @@ Options to select only desired metrics for chart from drop-down list.
 ### Updating Metrics
 The metrics are updated with each heartbeat from the GraphQL API. 
 ![alt text](https://media.giphy.com/media/hWXTIL1bdJi902j21v/giphy.gif)
+
+Read more about this assessment [here](https://react.eogresources.com)
