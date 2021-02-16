@@ -1,5 +1,5 @@
 ## Create React App Visualization
-Oil & Gas Dashboard created right after completing my coding bootcamp at Byte Academy. 
+Oil & Gas Dashboard created right after completing my coding bootcamp at Byte Academy. Project built using Reactjs and is responsive to a realtime GraphQL api.
 
 ### Welcome Message 
 ![alt text](https://media.giphy.com/media/MZiH097XqXnsNByWnD/giphy.gif)
