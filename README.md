@@ -1,9 +1,8 @@
 ## Create React App Visualization
-
-This assessment was bespoke handcrafted for Lorenzo.
+Oil & Gas Dashboard completed right after my coding school 
 
 Read more about this assessment [here](https://react.eogresources.com)
-# lorenzo-eog-react
+
 ### Welcome Message 
 ![alt text](https://media.giphy.com/media/MZiH097XqXnsNByWnD/giphy.gif)
 
